@@ -3,6 +3,8 @@
 
 int main()
 {
+    bool conectado = 0;
+
     std::string email;
     std::string password;
 
@@ -16,6 +18,12 @@ int main()
 
     std::cout<<"Email: " << email << "\n";
     std::cout<<"Senha: " << password << "\n";
+
+    if(conectado == 0) {
+        std::cout << "Voce nao esta conectado ou nao se cadastrou!\n";
+    }else {
+        std::cout << "Voce esta conectado\n";
+    }
 
     std::cout<<"Tudo certo!\n";
 
