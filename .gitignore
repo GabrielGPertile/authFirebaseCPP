@@ -1,0 +1,16 @@
+# Diretório de build
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Binários
+*.exe
+*.out
+*.a
+*.so
+*.dll
+
+# Outros temporários
+*.log
