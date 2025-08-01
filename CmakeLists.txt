@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.16)
+project(authFirebaseCPP)
+
+set(CMAKE_CXX_STANDARD 17)
+
+#definindo onde está o firebase SDK
+set(FIREBASE_SDK_PATH "C:/Users/User/Documents/C++Libs/firebase_cpp_sdk")
+set(FIREBASE_INCLUDE_DIR "${FIREBASE_SDK_PATH}/include")
+set(FIREBASE_LIB_DIR "${FIREBASE_SDK_PATH}/libs/windows/VS2019/MD/x64/Release")
+
+include_directories(${FIREBASE_INCLUDE_DIR})
+link_directories(${FIREBASE_LIB_DIR})
+
+add_executable(authFirebaseCPP main.cpp)
+
+target_link_libraries(authFirebaseCPP
+    firebase_app
+    firebase_auth
+
+
+    Ws2_32                  # para Winsock (network)
+    Crypt32                 # para API de criptografia Windows
+    Mswsock                 # sockets adicionais do Windows
+    Userenv                 # opcional, mas pode ajudar
+)
