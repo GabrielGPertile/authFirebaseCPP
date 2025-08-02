@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include <conio.h>  // getch()
-#include <algorithm>
+
+#include "passwordCinMasked.hpp"
 
 int main()
 {
@@ -17,17 +17,7 @@ int main()
     std::cout << "\n";
 
     std::cout << "Digite a sua senha:\n";
-    while((ch = _getch()) != '\r') {
-        if(ch == '\b') {
-            if(!password.empty()) {
-                password.pop_back();
-                std::cout << "\b \b";  // apaga o '*' no console
-            }
-        } else {
-            password += ch;
-            std::cout << '*';
-        }
-    }
+
     std::cout << "\n";
 
     std::cout << "Email: " << email << "\n";

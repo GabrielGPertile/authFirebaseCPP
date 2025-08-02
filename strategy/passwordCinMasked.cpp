@@ -19,7 +19,7 @@ std::string getHiddenPassword();
     std::cout << "\n";
 
     #elif defined(__linux__) || defined(__APPLE__)
-        termios oldt
+        termios oldt;
         termios newt;
 
         tcgetattr(STDIN_FILENO, &oldt);
