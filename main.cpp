@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
+#include <limits>
 
-#include "passwordCinMasked.hpp"
+#include "strategy/passwordCinMasked.hpp"
 
 int main()
 {
@@ -14,10 +15,9 @@ int main()
 
     std::cout << "Digite o seu email:\n";
     std::cin >> email;
-    std::cout << "\n";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    std::cout << "Digite a sua senha:\n";
-
+    password = getHiddenPassword();
     std::cout << "\n";
 
     std::cout << "Email: " << email << "\n";
