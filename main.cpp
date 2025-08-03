@@ -4,6 +4,7 @@
 
 #include "strategy/passwordMasked/passwordCinMasked.hpp"
 #include "strategy/convertStringToLower/convertStringToLower.hpp"
+#include "strategy/emailValidator/emailValidator.hpp"
 
 int main()
 {
@@ -19,6 +20,14 @@ int main()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     email = stringToLower(email);
+
+    if(!isEmailValid(email))
+    {
+        std::cout << "Email inválido.\n";
+
+        return 1;
+    }
+
 
     password = getHiddenPassword();
     std::cout << "\n";
