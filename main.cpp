@@ -3,6 +3,7 @@
 #include <limits>
 
 #include "strategy/passwordMasked/passwordCinMasked.hpp"
+#include "strategy/convertStringToLower/convertStringToLower.hpp"
 
 int main()
 {
@@ -16,6 +17,8 @@ int main()
     std::cout << "Digite o seu email:\n";
     std::cin >> email;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    email = stringToLower(email);
 
     password = getHiddenPassword();
     std::cout << "\n";
