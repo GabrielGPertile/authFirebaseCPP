@@ -16,6 +16,7 @@ add_executable(authFirebaseCPP
     main.cpp
     strategy/passwordMasked/passwordCinMasked.cpp
     strategy/convertstringToLower/convertStringToLower.cpp
+    "strategy/emailValidator/emailValidator.cpp"
 )
 
 target_link_libraries(authFirebaseCPP
