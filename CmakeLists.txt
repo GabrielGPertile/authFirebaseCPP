@@ -9,9 +9,13 @@ set(FIREBASE_INCLUDE_DIR "${FIREBASE_SDK_PATH}/include")
 set(FIREBASE_LIB_DIR "${FIREBASE_SDK_PATH}/libs/windows/VS2019/MD/x64/Release")
 
 include_directories(${FIREBASE_INCLUDE_DIR})
+include_directories(strategy)
 link_directories(${FIREBASE_LIB_DIR})
 
-add_executable(authFirebaseCPP main.cpp)
+add_executable(authFirebaseCPP 
+    main.cpp
+    strategy/passwordMasked/passwordCinMasked.cpp
+)
 
 target_link_libraries(authFirebaseCPP
     firebase_app

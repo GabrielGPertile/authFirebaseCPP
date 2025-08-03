@@ -2,7 +2,7 @@
 #include <string>
 #include <limits>
 
-#include "strategy/passwordCinMasked.hpp"
+#include "strategy/passwordMasked/passwordCinMasked.hpp"
 
 int main()
 {
