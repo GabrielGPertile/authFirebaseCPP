@@ -15,6 +15,7 @@ link_directories(${FIREBASE_LIB_DIR})
 add_executable(authFirebaseCPP 
     main.cpp
     strategy/passwordMasked/passwordCinMasked.cpp
+    strategy/convertstringToLower/convertStringToLower.cpp
 )
 
 target_link_libraries(authFirebaseCPP
