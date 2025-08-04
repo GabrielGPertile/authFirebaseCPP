@@ -23,6 +23,7 @@ int main()
         std::cout << "Digite um opcao:\n";
 
         inserirOpcao(&opcao);
+        limparTela();
 
         switch (opcao)
         {
@@ -88,4 +89,15 @@ void inserirOpcao(int *opcao)
     }
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+void limparTela()
+{
+    #ifdef _WIN32
+        system("cls");
+    #elif defined __APPLE__
+        system("clear");
+    #elif defined __unix__ || defined __linux__
+        system("clear");
+    #endif
 }
