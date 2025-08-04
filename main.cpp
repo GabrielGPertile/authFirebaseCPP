@@ -9,6 +9,8 @@
 
 int main()
 {
+    int opcao = int();
+
     char ch;
 
     bool conectado = 0;
@@ -75,4 +77,15 @@ void mostrarInicialMenu()
     std::cout << "1 - Cadastrar-se\n";
     std::cout << "2 - Entrar\n";
     std::cout << "0 - Sair\n";
+}
+
+void inserirOpcao(int *opcao)
+{
+    while(!(std::cin >> *opcao) || *opcao <= -1 || *opcao >= 4){
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout<<"Entrada invalida. Digite um valor inteiro maior que -1 e menor que 4:"<<std::endl;
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
