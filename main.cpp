@@ -5,6 +5,7 @@
 #include "strategy/passwordMasked/passwordCinMasked.hpp"
 #include "strategy/convertStringToLower/convertStringToLower.hpp"
 #include "strategy/emailValidator/emailValidator.hpp"
+#include "main.hpp"
 
 int main()
 {
@@ -14,6 +15,28 @@ int main()
 
     std::string email;
     std::string password;
+
+    do{
+        mostrarInicialMenu();
+        std::cout << "Digite um opcao:\n";
+
+        inserirOpcao(&opcao);
+
+        switch (opcao)
+        {
+            case 1:
+                /* code */
+            break;
+            
+            case 0:
+                return 1;
+            break;
+
+            default:
+            break;
+        }
+
+    }while(opcao != 0);
 
     std::cout << "Digite o seu email:\n";
     std::cin >> email;
@@ -44,4 +67,12 @@ int main()
     std::cout<<"Tudo certo!\n";
 
 return 0;
+}
+
+void mostrarInicialMenu()
+{
+    std::cout << "";
+    std::cout << "1 - Cadastrar-se\n";
+    std::cout << "2 - Entrar\n";
+    std::cout << "0 - Sair\n";
 }
