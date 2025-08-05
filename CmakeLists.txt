@@ -8,6 +8,10 @@ set(FIREBASE_SDK_PATH "C:/Users/User/Documents/C++Libs/firebase_cpp_sdk")
 set(FIREBASE_INCLUDE_DIR "${FIREBASE_SDK_PATH}/include")
 set(FIREBASE_LIB_DIR "${FIREBASE_SDK_PATH}/libs/windows/VS2019/MD/x64/Release")
 
+find_package(laserpants_dotenv CONFIG REQUIRED PATHS
+    "C:/Users/User/Documents/C++Libs/dotenv-cpp/lib/cmake/laserpants_dotenv"
+)
+
 include_directories(${FIREBASE_INCLUDE_DIR})
 include_directories(strategy)
 link_directories(${FIREBASE_LIB_DIR})
@@ -22,10 +26,17 @@ add_executable(authFirebaseCPP
 target_link_libraries(authFirebaseCPP
     firebase_app
     firebase_auth
+    laserpants::dotenv
 
 
     Ws2_32                  # para Winsock (network)
     Crypt32                 # para API de criptografia Windows
     Mswsock                 # sockets adicionais do Windows
     Userenv                 # opcional, mas pode ajudar
+)
+
+add_custom_command(TARGET authFirebaseCPP POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${CMAKE_SOURCE_DIR}/.env"
+    $<TARGET_FILE_DIR:authFirebaseCPP>/.env
 )
