@@ -69,6 +69,48 @@ int main()
                 
                 break;
             }
+
+            case 2:
+            {   
+                std::cout << "\t\tEntrar!\n";
+                
+                std::cout << "Email:";
+                std::cin >> email;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                email = stringToLower(email);
+
+                if (!isEmailValid(email))
+                {
+                    std::cout << "Email inválido.\n";
+                    break;
+                }
+
+                std::cout << "Senha:";
+                password = getHiddenPassword();
+                std::cout << "\n";
+
+                firebase::Future<firebase::auth::AuthResult> login = auth->SignInWithEmailAndPassword(email.c_str(), password.c_str());
+
+                // Aguarda o login
+                while(login.status() == firebase::kFutureStatusPending) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                }
+
+                if (login.status() == firebase::kFutureStatusComplete && login.error() == firebase::auth::kAuthErrorNone) {
+                    std::cout << "Conectado com sucesso!\n";
+
+                    auto* auth_result = login.result();
+                    
+                    if (auth_result != nullptr) {
+                        std::cout << "Usuário autenticado: " << auth_result->user.email() << "\n";
+                    } else {
+                        std::cerr << "AuthResult retornado é nullptr.\n";
+                    }
+                } else {
+                    std::cerr << "Falha na autenticação: " << login.error_message() << "\n";
+                }
+                break;
+            }
             
             case 0:
                 return 1;
