@@ -41,6 +41,15 @@ int main()
         "projectID",
         "appID");
 
+
+    firebase::AppOptions app_options;
+    app_options.set_api_key(firebaseObject.getApiKey().c_str());
+    app_options.set_project_id(firebaseObject.getProjectID().c_str());
+    app_options.set_app_id(firebaseObject.getAppID().c_str());
+
+    firebase::App* app = firebase::App::Create(app_options);
+    firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(app);
+
     do{
         mostrarInicialMenu();
         std::cout << "Digite um opcao:\n";
