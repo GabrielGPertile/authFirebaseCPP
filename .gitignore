@@ -11,6 +11,7 @@ Makefile
 *.a
 *.so
 *.dll
+*.env
 
 # Outros temporários
 *.log
