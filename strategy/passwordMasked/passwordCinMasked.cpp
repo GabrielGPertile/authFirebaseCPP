@@ -6,7 +6,6 @@ std::string getHiddenPassword()
     char ch;
 
 #if defined(_WIN32) || defined(_WIN64)
-    std::cout << "Digite a sua senha: ";
     while ((ch = _getch()) != '\r') {
         if (ch == '\b') {
             if (!password.empty()) {
