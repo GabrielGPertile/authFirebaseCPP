@@ -9,11 +9,8 @@
 
 int main()
 {
-    int opcao = int();
-
-    char ch;
-
-    bool conectado = 0;
+    int opcao = 0;
+    bool conectado = 0
 
     std::string email;
     std::string password;
