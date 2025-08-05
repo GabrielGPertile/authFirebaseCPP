@@ -1,19 +1,45 @@
 #include <iostream>
 #include <string>
+#define NOMINMAX
 #include <limits>
+
+#include "dotenv.h"
 
 #include "strategy/passwordMasked/passwordCinMasked.hpp"
 #include "strategy/convertStringToLower/convertStringToLower.hpp"
 #include "strategy/emailValidator/emailValidator.hpp"
+#include "firebase/app.h"
+#include "firebase/auth.h"
+#include "firebaseobject.hpp"
 #include "main.hpp"
 
 int main()
-{
+{  
+    // Inicializa o dotenv para carregar as variáveis do arquivo .env
+    dotenv::init();
+
+    //variaveis do projeto do firebase
+    const char* apiKey = std::getenv("FIREBASE_API_KEY");
+    const char* projectID = std::getenv("FIREBASE_PROJECT_ID");
+    const char* appID = std::getenv("FIREBASE_APP_ID");
+
     int opcao = 0;
-    bool conectado = 0
+    bool conectado = 0;
 
     std::string email;
     std::string password;
+
+    // Verifique se as variáveis estão definidas
+    if(!apiKey || !projectID || !appID)
+    {
+        std::cerr << "Variáveis de ambiente Firebase não definidas!" << std::endl;
+        return 1;
+    }
+
+    FirebaseObject firebaseObject(
+        "apiKey",
+        "projectID",
+        "appID");
 
     do{
         mostrarInicialMenu();
