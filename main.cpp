@@ -10,8 +10,6 @@
 #include "strategy/passwordMasked/passwordCinMasked.hpp"
 #include "strategy/convertStringToLower/convertStringToLower.hpp"
 #include "strategy/emailValidator/emailValidator.hpp"
-#include "firebase/app.h"
-#include "firebase/auth.h"
 #include "firebaseobject.hpp"
 #include "main.hpp"
 
@@ -63,41 +61,11 @@ int main()
         {
             case 1:
             {
-                std::cout << "\t\tCadastro!\n";
-                
-                std::cout << "Email:";
-                std::cin >> email;
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                email = stringToLower(email);
+                cadastrarUsuario(auth, email, password);
 
+                std::this_thread::sleep_for(std::chrono::seconds(2));
 
-                if (!isEmailValid(email))
-                {
-                    std::cout << "Email inválido.\n";
-                    break;
-                }
-
-                std::cout << "Senha:";
-                password = getHiddenPassword();
-                std::cout << "\n";
-
-                // Cria usuário no Firebase
-                auto result = auth->CreateUserWithEmailAndPassword(email.c_str(), password.c_str());
-
-                while(result.status() == firebase::kFutureStatusPending)
-                {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-                }
-
-                if(result.error() == 0)
-                {
-                    std::cout << "Usuário criado com sucesso!\n";
-                    conectado = true;
-                }
-                else 
-                {
-                    std::cout << "Erro ao criar usuário: " << result.error_message() << "\n";
-                }
+                limparTela();
                 
                 break;
             }
@@ -171,4 +139,43 @@ void limparTela()
     #elif defined __unix__ || defined __linux__
         system("clear");
     #endif
+}
+
+void cadastrarUsuario(firebase::auth::Auth *auth, std::string email, std::string password)
+{
+    std::cout << "\t\tCadastro!\n";
+                
+    std::cout << "Email:";
+    std::cin >> email;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    email = stringToLower(email);
+
+
+    if (!isEmailValid(email))
+    {
+        std::cout << "Email inválido.\n";
+        return;
+    }
+
+    std::cout << "Senha:";
+    password = getHiddenPassword();
+    std::cout << "\n";
+
+    // Cria usuário no Firebase
+    auto result = auth->CreateUserWithEmailAndPassword(email.c_str(), password.c_str());
+
+    while(result.status() == firebase::kFutureStatusPending)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    if(result.error() == 0)
+    {
+        std::cout << "Usuário criado com sucesso!\n";
+    }
+    else 
+    {
+        std::cout << "Erro ao criar usuário: " << result.error_message() << "\n";
+    }
+
 }
