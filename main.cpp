@@ -2,6 +2,8 @@
 #include <string>
 #define NOMINMAX
 #include <limits>
+#include <thread>
+#include <chrono>
 
 #include "dotenv.h"
 
@@ -37,9 +39,9 @@ int main()
     }
 
     FirebaseObject firebaseObject(
-        "apiKey",
-        "projectID",
-        "appID");
+        apiKey,
+        projectID,
+        appID);
 
 
     firebase::AppOptions app_options;
@@ -60,8 +62,45 @@ int main()
         switch (opcao)
         {
             case 1:
-                /* code */
-            break;
+            {
+                std::cout << "\t\tCadastro!\n";
+                
+                std::cout << "Email:";
+                std::cin >> email;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                email = stringToLower(email);
+
+
+                if (!isEmailValid(email))
+                {
+                    std::cout << "Email inválido.\n";
+                    break;
+                }
+
+                std::cout << "Senha:";
+                password = getHiddenPassword();
+                std::cout << "\n";
+
+                // Cria usuário no Firebase
+                auto result = auth->CreateUserWithEmailAndPassword(email.c_str(), password.c_str());
+
+                while(result.status() == firebase::kFutureStatusPending)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                }
+
+                if(result.error() == 0)
+                {
+                    std::cout << "Usuário criado com sucesso!\n";
+                    conectado = true;
+                }
+                else 
+                {
+                    std::cout << "Erro ao criar usuário: " << result.error_message() << "\n";
+                }
+                
+                break;
+            }
             
             case 0:
                 return 1;
