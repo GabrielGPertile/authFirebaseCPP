@@ -24,7 +24,7 @@ int main()
     const char* appID = std::getenv("FIREBASE_APP_ID");
 
     int opcaoPrincipal = 0;
-    bool conectado = 0;
+    bool conectado = false;
 
     std::string email;
     std::string password;
@@ -191,7 +191,7 @@ void cadastrarUsuario(firebase::auth::Auth *auth, std::string email, std::string
 
 }
 
-void loginUsuario(firebase::auth::Auth *auth, std::string email, std::string password)
+bool loginUsuario(firebase::auth::Auth *auth, std::string email, std::string password)
 {
     std::cout << "\t\tEntrar!\n";
                 
@@ -219,15 +219,13 @@ void loginUsuario(firebase::auth::Auth *auth, std::string email, std::string pas
 
     if (login.status() == firebase::kFutureStatusComplete && login.error() == firebase::auth::kAuthErrorNone) {
         std::cout << "Conectado com sucesso!\n";
-
         auto* auth_result = login.result();
-                    
         if (auth_result != nullptr) {
             std::cout << "Usuário autenticado: " << auth_result->user.email() << "\n";
-        } else {
-            std::cerr << "AuthResult retornado é nullptr.\n";
         }
+        return true;
     } else {
         std::cerr << "Falha na autenticação: " << login.error_message() << "\n";
+        return false;
     }
 }
