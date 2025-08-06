@@ -15,6 +15,12 @@
 
 int main()
 {  
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+    #endif
+
+
     // Inicializa o dotenv para carregar as variáveis do arquivo .env
     dotenv::init();
 
@@ -24,6 +30,7 @@ int main()
     const char* appID = std::getenv("FIREBASE_APP_ID");
 
     int opcaoPrincipal = 0;
+    int opcaoMenuLogado = 0;
     bool conectado = false;
 
     std::string email;
@@ -79,13 +86,30 @@ int main()
                 limparTela();
 
                 if(!conectado) {
-                    std::cout << "Voce nao esta conectado!";
+                    std::cout << "Voce não esta conectado!";
                     std::this_thread::sleep_for(std::chrono::seconds(2));
                     limparTela();
                     break;
                 }
 
                 mostrarMenuSecundario();
+                std::cout << "Digite um opção:\n";
+                
+                inserirOpcao(&opcaoMenuLogado);
+                limparTela();
+
+                switch (opcaoMenuLogado)
+                {
+                    case 1:
+                    
+                    break;
+
+                    case 0:
+                    break;
+                    
+                    default:
+                    break;
+                }
 
                 break;
             }
@@ -141,8 +165,8 @@ void mostrarMenuPrincipal()
 
 void mostrarMenuSecundario()
 {
-    std::cout << "1 - Informacoes do projeto\n";
-    std::cout << "2 - Suas informacoes\n";
+    std::cout << "1 - Informações do projeto\n";
+    std::cout << "2 - Suas informações\n";
     std::cout << "3 - Trocar de senha\n";
     std::cout << "0 - Deslogar\n";
 }
