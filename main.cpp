@@ -125,6 +125,7 @@ int main()
                     break;
 
                     case 0:
+                        auth->SignOut();
                     break;
                     
                     default:
