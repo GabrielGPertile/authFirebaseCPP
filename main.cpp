@@ -51,7 +51,7 @@ int main()
     firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(app);
 
     do{
-        mostrarInicialMenu();
+        mostrarMenuPrincipal();
         std::cout << "Digite um opcao:\n";
 
         inserirOpcao(&opcaoPrincipal);
@@ -72,7 +72,7 @@ int main()
 
             case 2:
             {   
-                loginUsuario(auth, email, password);
+                conectado = loginUsuario(auth, email, password);
 
                 std::this_thread::sleep_for(std::chrono::seconds(2));
 
@@ -203,7 +203,7 @@ bool loginUsuario(firebase::auth::Auth *auth, std::string email, std::string pas
     if (!isEmailValid(email))
     {
         std::cout << "Email inválido.\n";
-        return;
+        return false;
     }
 
     std::cout << "Senha:";
