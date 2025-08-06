@@ -23,7 +23,7 @@ int main()
     const char* projectID = std::getenv("FIREBASE_PROJECT_ID");
     const char* appID = std::getenv("FIREBASE_APP_ID");
 
-    int opcao = 0;
+    int opcaoPrincipal = 0;
     bool conectado = 0;
 
     std::string email;
@@ -54,10 +54,10 @@ int main()
         mostrarInicialMenu();
         std::cout << "Digite um opcao:\n";
 
-        inserirOpcao(&opcao);
+        inserirOpcao(&opcaoPrincipal);
         limparTela();
 
-        switch (opcao)
+        switch (opcaoPrincipal)
         {
             case 1:
             {
@@ -89,7 +89,7 @@ int main()
             break;
         }
 
-    }while(opcao != 0);
+    }while(opcaoPrincipal != 0);
 
     std::cout << "Digite o seu email:\n";
     std::cin >> email;
@@ -122,7 +122,7 @@ int main()
 return 0;
 }
 
-void mostrarInicialMenu()
+void mostrarMenuPrincipal()
 {
     std::cout << "";
     std::cout << "1 - Cadastrar-se\n";

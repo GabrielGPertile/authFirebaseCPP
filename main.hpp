@@ -3,7 +3,7 @@
 #include "firebase/app.h"
 #include "firebase/auth.h"
 
-void mostrarInicialMenu();
+void mostrarMenuPrincipal();
 void inserirOpcao(int *opcao);
 void limparTela();
 
