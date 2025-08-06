@@ -92,6 +92,8 @@ int main()
                     break;
                 }
 
+                do {
+                    
                 mostrarMenuSecundario();
                 std::cout << "Digite um opção:\n";
                 
@@ -101,7 +103,11 @@ int main()
                 switch (opcaoMenuLogado)
                 {
                     case 1:
-                    
+                        mostrarInformacoesProjeto();
+
+                        std::cin.get();
+
+                        limparTela();
                     break;
 
                     case 0:
@@ -110,6 +116,8 @@ int main()
                     default:
                     break;
                 }
+
+                }while(opcaoMenuLogado != 0);
 
                 break;
             }
@@ -123,23 +131,6 @@ int main()
         }
 
     }while(opcaoPrincipal != 0);
-
-    std::cout << "Digite o seu email:\n";
-    std::cin >> email;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    email = stringToLower(email);
-
-    if(!isEmailValid(email))
-    {
-        std::cout << "Email inválido.\n";
-
-        return 1;
-    }
-
-
-    password = getHiddenPassword();
-    std::cout << "\n";
 
     std::cout << "Email: " << email << "\n";
     std::cout << "Senha: " << password << "\n";
@@ -269,4 +260,12 @@ bool loginUsuario(firebase::auth::Auth *auth, std::string email, std::string pas
         std::cerr << "Falha na autenticação: " << login.error_message() << "\n";
         return false;
     }
+}
+
+void mostrarInformacoesProjeto()
+{
+    std::cout << "Este projeto tem como finalidade criar, logar, trocar senha e deslogar,\n";
+    std::cout << "usando o serviço de autenticação do Firebase com email e senha.\n";
+    std::cout << "É um projeto simples, feito para aplicar o que foi aprendido\n";
+    std::cout << "e depois criar um site web usando o Drogon.\n";
 }
