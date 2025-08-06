@@ -78,6 +78,15 @@ int main()
 
                 limparTela();
 
+                if(!conectado) {
+                    std::cout << "Voce nao esta conectado!";
+                    std::this_thread::sleep_for(std::chrono::seconds(2));
+                    limparTela();
+                    break;
+                }
+
+                mostrarMenuSecundario();
+
                 break;
             }
             
@@ -128,6 +137,14 @@ void mostrarMenuPrincipal()
     std::cout << "1 - Cadastrar-se\n";
     std::cout << "2 - Entrar\n";
     std::cout << "0 - Sair\n";
+}
+
+void mostrarMenuSecundario()
+{
+    std::cout << "1 - Informacoes do projeto\n";
+    std::cout << "2 - Suas informacoes\n";
+    std::cout << "3 - Trocar de senha\n";
+    std::cout << "0 - Deslogar\n";
 }
 
 void inserirOpcao(int *opcao)
