@@ -2,6 +2,7 @@
 
 #include "firebase/app.h"
 #include "firebase/auth.h"
+#include "firebase/util.h"
 
 void mostrarMenuPrincipal();
 void mostrarMenuSecundario();
@@ -13,3 +14,4 @@ bool loginUsuario(firebase::auth::Auth* auth, std::string email, std::string pas
 
 void mostrarInformacoesProjeto();
 void mostrarInformacoesPessoal(firebase::auth::Auth* auth, bool* conectado);
+void trocarSenha(firebase::auth::Auth* auth);

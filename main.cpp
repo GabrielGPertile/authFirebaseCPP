@@ -113,7 +113,15 @@ int main()
                     case 2 :
                     {
                         mostrarInformacoesPessoal(auth, &conectado);
+                        std::cin.get();
+                        limparTela();
                     }
+                    break;
+
+                    case 3 :
+                        trocarSenha(auth);
+                        std::cin.get();
+                        limparTela();
                     break;
 
                     case 0:
@@ -286,5 +294,62 @@ void mostrarInformacoesPessoal(firebase::auth::Auth* auth,  bool* conectado)
     if(*conectado == true)
     {
         std::cout << "Você está conectado!\n";
+    }
+}
+
+void trocarSenha(firebase::auth::Auth *auth)
+{
+    firebase::auth::User user = auth->current_user();
+
+    std::string newPassword;
+    std::string password;
+
+    if(!user.is_valid())
+    {
+        std::cout << "Nenhum usuário logado. Faça login primeiro.\n";
+        return;
+    }
+
+    std::cout << "Digite a sua senha atual: ";
+    password = getHiddenPassword();
+    std::cout << "\n";
+
+    std::cout << "Digite a sua nova senha: ";
+    newPassword = getHiddenPassword();
+    std::cout << "\n";
+
+    firebase::auth::Credential cred = firebase::auth::EmailAuthProvider::GetCredential(user.email().c_str(), password.c_str());
+
+    std::cout << "Reautenticando...\n";
+    firebase::Future<void> reauth = user.Reauthenticate(cred);
+
+    while (reauth.status() == firebase::kFutureStatusPending) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    if (reauth.error() == firebase::auth::kAuthErrorNone)
+    {
+        std::cout << "Reautenticação bem-sucedida! Alterando senha...\n";
+
+        firebase::Future<void> atualizarSenha = user.UpdatePassword(newPassword.c_str());
+
+        while (atualizarSenha.status() == firebase::kFutureStatusPending) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+
+        if (atualizarSenha.error() == firebase::auth::kAuthErrorNone)
+        {
+            std::cout << "Senha alterada com sucesso!\n";
+        }
+        else
+        {
+            std::cerr << "Erro ao alterar a senha: " << atualizarSenha.error_message()
+                    << " (" << atualizarSenha.error() << ")\n";
+        }
+    }
+    else
+    {
+        std::cerr << "Erro na reautenticação: " << reauth.error_message()
+                << " (" << reauth.error() << ")\n";
     }
 }
