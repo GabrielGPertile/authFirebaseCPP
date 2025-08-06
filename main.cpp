@@ -110,6 +110,12 @@ int main()
                         limparTela();
                     break;
 
+                    case 2 :
+                    {
+                        mostrarInformacoesPessoal(auth, &conectado);
+                    }
+                    break;
+
                     case 0:
                     break;
                     
@@ -268,4 +274,17 @@ void mostrarInformacoesProjeto()
     std::cout << "usando o serviço de autenticação do Firebase com email e senha.\n";
     std::cout << "É um projeto simples, feito para aplicar o que foi aprendido\n";
     std::cout << "e depois criar um site web usando o Drogon.\n";
+}
+
+void mostrarInformacoesPessoal(firebase::auth::Auth* auth,  bool* conectado)
+{
+    if(auth->current_user().is_valid())
+    {
+        std::cout << "Seu email: " << auth->current_user().email() << "\n";
+    }
+    
+    if(*conectado == true)
+    {
+        std::cout << "Você está conectado!\n";
+    }
 }

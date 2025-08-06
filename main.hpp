@@ -12,3 +12,4 @@ void cadastrarUsuario(firebase::auth::Auth* auth, std::string email, std::string
 bool loginUsuario(firebase::auth::Auth* auth, std::string email, std::string password);
 
 void mostrarInformacoesProjeto();
+void mostrarInformacoesPessoal(firebase::auth::Auth* auth, bool* conectado);
