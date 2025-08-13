@@ -147,17 +147,7 @@ int main()
 
     }while(opcaoPrincipal != 0);
 
-    std::cout << "Email: " << email << "\n";
-    std::cout << "Senha: " << password << "\n";
-
-    if(conectado == 0) {
-        std::cout << "Voce nao esta conectado ou nao se cadastrou!\n";
-    }else {
-        std::cout << "Voce esta conectado\n";
-    }
-
-    std::cout<<"Tudo certo!\n";
-
+    std::cout << "Obrigado por usar nosso programa! Volte sempre!\n";
 return 0;
 }
 
