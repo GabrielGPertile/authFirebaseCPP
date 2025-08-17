@@ -3,27 +3,36 @@ project(authFirebaseCPP)
 
 set(CMAKE_CXX_STANDARD 17)
 
-#definindo onde está o firebase SDK
+# Suprimir aviso CMP0167 do FindBoost
+cmake_policy(SET CMP0144 NEW)
+
+# -------------------------------
+# Paths do Firebase
+# -------------------------------
 set(FIREBASE_SDK_PATH "C:/Users/User/Documents/C++Libs/firebase_cpp_sdk")
 set(FIREBASE_INCLUDE_DIR "${FIREBASE_SDK_PATH}/include")
 set(FIREBASE_LIB_DIR "${FIREBASE_SDK_PATH}/libs/windows/VS2019/MD/x64/Release")
 
-# Caminho para headers e libs locais
-set(Boost_ROOT  "C:/Users/User/Documents/C++Libs/boost_1_88_0")
-set(BOOST_INCLUDEDIR "${Boost_ROOT}")
-set(BOOST_LIBRARYDIR "${Boost_ROOT}/stage/lib")
-
-find_package(Boost 1.88 REQUIRED COMPONENTS locale)
-include_directories(${Boost_INCLUDE_DIRS})
-
-find_package(laserpants_dotenv CONFIG REQUIRED PATHS
-    "C:/Users/User/Documents/C++Libs/dotenv-cpp/lib/cmake/laserpants_dotenv"
-)
-
 include_directories(${FIREBASE_INCLUDE_DIR})
-include_directories(strategy)
+
 link_directories(${FIREBASE_LIB_DIR})
 
+# -------------------------------
+# Paths do Boost
+# -------------------------------
+set(BOOST_ROOT "C:/Users/User/Documents/C++Libs/boost_1_88_0")
+include_directories("${BOOST_ROOT}")
+
+# -------------------------------
+# Dotenv
+# -------------------------------
+find_package(laserpants_dotenv CONFIG REQUIRED
+    PATHS "C:/Users/User/Documents/C++Libs/dotenv-cpp/lib/cmake/laserpants_dotenv"
+)
+
+# -------------------------------
+# Executável
+# -------------------------------
 add_executable(authFirebaseCPP 
     main.cpp
     strategy/passwordMasked/passwordCinMasked.cpp
@@ -31,29 +40,25 @@ add_executable(authFirebaseCPP
     strategy/emailValidator/emailValidator.cpp
 )
 
+# -------------------------------
+# Linkagem
+# -------------------------------
 target_link_libraries(authFirebaseCPP
-    firebase_app    
+    firebase_app
     firebase_auth
     laserpants::dotenv
-    ${Boost_LIBRARIES}     # Boost.Locale
-
-    Ws2_32                  # para Winsock (network)
-    Crypt32                 # para API de criptografia Windows
-    Mswsock                 # sockets adicionais do Windows
-    Userenv                 # opcional, mas pode ajudar
+    "C:/Users/User/Documents/C++Libs/boost_1_88_0/stage/lib/libboost_locale-vc143-mt-x64-1_88.lib"       # Link automático da DLL
+    Ws2_32
+    Crypt32
+    Mswsock
+    Userenv
 )
 
+# -------------------------------
+# Copiar .env
+# -------------------------------
 add_custom_command(TARGET authFirebaseCPP POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
     "${CMAKE_SOURCE_DIR}/.env"
     $<TARGET_FILE_DIR:authFirebaseCPP>/.env
 )
-
-# 2. Boost.Locale DLL (para rodar o executável no Windows)
-if (WIN32)
-    add_custom_command(TARGET authFirebaseCPP POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${BOOST_LIBRARYDIR}/boost_locale-vc143-mt-x64-1_88.dll"
-        $<TARGET_FILE_DIR:authFirebaseCPP>
-    )
-endif()
