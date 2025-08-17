@@ -206,7 +206,6 @@ void cadastrarUsuario(firebase::auth::Auth *auth, std::string email, std::string
         return;
     }
 
-    std::cout << "Senha:";
     password = getHiddenPassword();
     std::cout << "\n";
 
@@ -244,7 +243,6 @@ bool loginUsuario(firebase::auth::Auth *auth, std::string email, std::string pas
         return false;
     }
 
-    std::cout << "Senha:";
     password = getHiddenPassword();
     std::cout << "\n";
 
