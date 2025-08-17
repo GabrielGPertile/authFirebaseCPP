@@ -2,8 +2,9 @@
 
 std::string stringToLower(std::string email)
 {
-    std::transform(email.begin(), email.end(), email.begin(),
-        [](unsigned char c) { return std::tolower(c); });
+    boost::locale::generator gen;
 
-    return email;
+    std::locale loc = gen("pt_BR.UTF-8"); // força regras do português
+    
+    return boost::locale::to_lower(email, loc); 
 }
