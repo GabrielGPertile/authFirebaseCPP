@@ -1,20 +1,22 @@
 
 ## Sumário
 
-- [Título e Descrição](#TítuloeDescrição)
-- [Estrutura de Diretórios](#EstruturadeDiretórios)
+- [Título e Descrição](#FirebaseAuthCPP)
+- [Estrutura de Diretórios ](#Estrutura_De_Diretórios)
 - [Demonstração](#Demonstração)
 - [Funcionalidades](#Funcionalidades)
-- [Stack utilizada](#StackUtilizada)
-- [Variáveis de Ambiente](#VariáveisDeAmbiente)
+- [Stack utilizada](#Stack_Utilizada)
+- [Variáveis de Ambiente](#Variáveis_De_Ambiente)
+- [Deploy](#Deploy)
 
 # FirebaseAuthCPP
 
 Este projeto implementa as principais funcionalidades do serviço de autenticação do Firebase, utilizando o provedor de email/senha, com foco em aplicações desenvolvidas em C++.
 
-## Estrutura de Diretórios 
+## Estrutura_De_Diretórios 
 
 ![EstruturaPastas](imagemProjeto/imagem5.jpeg)
+
 ## Demonstração
 
 ![Inicial](imagemProjeto/imagem1.jpeg)
@@ -32,6 +34,8 @@ Este projeto implementa as principais funcionalidades do serviço de autenticaç
 
 **Padrão de Projeto:** O projeto utiliza o padrão Strategy para implementar funcionalidades que podem ser reaproveitadas em várias partes do código, sem necessidade de reescrevê-las. Isso torna o código mais modular, organizado e fácil de manter.## Stack utilizada
 
+## Stack_Utilizada
+
 **Linguagem:** C++17
 
 **Build:** CMake, utilizando o tipo de compilação **Release** com todas as bibliotecas linkadas **estaticamente**
@@ -40,7 +44,7 @@ Este projeto implementa as principais funcionalidades do serviço de autenticaç
 
 O executável gerado é **estático**, ou seja, não depende de DLLs externas para rodar.
 
-## Variáveis de Ambiente
+## Variáveis_de_Ambiente
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
