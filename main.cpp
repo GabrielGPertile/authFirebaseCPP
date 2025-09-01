@@ -194,7 +194,8 @@ void cadastrarUsuario(firebase::auth::Auth *auth, std::string email, std::string
     std::cout << "\t\tCadastro!\n";
                 
     std::cout << "Digite o seu email com letra minuscula e com letras e numeros que não\n";
-    std::cout << "tenha acentos!\n";    
+    std::cout << "tenha acentos!\n";
+    std::cout << "Seu email sempre vai ser salvo em letras minusculas!\n";    
     std::cout << "Email:";
     std::cin >> email;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
