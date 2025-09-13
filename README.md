@@ -115,4 +115,9 @@ Para fazer o deploy deste projeto, primeiro exclua a pasta `build` e compile con
     authFirebaseCPP.exe
 ```
 
+Para facilitar, foi adicionado a pasta ParaBaixar, que contém o projeto executável e o arquivo das variáveis de ambiente. O único requisto é que o seu computador tenha o sistema operacional windows e que tenha instalado o Visual C++ Redistributable 2015-2022. Se for baixando no Windows 7, pode ser que o `.env` venha com o nome `env`, para conserta isso, você deve entrar no terminal na mesma pasta que está o executal e o `.env` e renomea-lo com esse comando: 
+    ren env .env
+
+No demais é só alterar o contéudo do `.env` conforme está descrito na seção Variáveis_de_Ambiente.
+
 **Obs:** O arquivo `.env` deve ficar na mesma pasta do `.exe` e deve ter o nome `.env`.
